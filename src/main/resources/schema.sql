@@ -37,5 +37,5 @@ INSERT INTO Super_Garage (make, model, colour, price, vin) VALUES
 ('Ud', '2300DH', 'Silver', 20000.00, '1FDKF37G0VEB60218'),
 ('Peugeot', 'PARTNER', 'Black', 34500.50, '4T4BE46K29R024916'),
 ('John Deere', 'GATOR HPX 4X4','Green',204000.00,'5XYZU3LB6EG175235'),
-('Ford', 'E-250 ECONOLINE','Brown',3344.50,'1HTWEAAR94J033399'),
+('Ford', 'E-250 ECONOLINE','Brown',3144.50,'1HTWEAAR94J033399'),
 ('Audi','Q5 Kmofort','Black',31900.00,'2T2HA31U44C082535');

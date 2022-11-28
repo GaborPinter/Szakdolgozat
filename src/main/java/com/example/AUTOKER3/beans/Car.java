@@ -1,5 +1,7 @@
 package com.example.AUTOKER3.beans;
 
+import java.util.Arrays;
+
 public class Car {
 
 	private int id;
@@ -107,5 +109,13 @@ public class Car {
 	public void setDealerships(String[] dealerships) {
 		this.dealerships = dealerships;
 	}
+
+	@Override
+	public String toString() {
+		return "Car [id=" + id + ", make=" + make + ", model=" + model + ", colour=" + colour + ", price=" + price
+				+ ", vin=" + vin + ", dealership=" + dealership;
+	}
+	
+	
 	
 }

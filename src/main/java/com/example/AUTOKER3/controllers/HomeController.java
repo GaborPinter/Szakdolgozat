@@ -1,6 +1,11 @@
 package com.example.AUTOKER3.controllers;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -107,50 +112,175 @@ public class HomeController {
 	/**Searches the car by ID and returns the result
 	 * @return A HTML page which acts as view car page
 	 */
-	@GetMapping("/searchId")
-	public String searchCarId(Model model, @RequestParam int id)
-	{
-		model.addAttribute("carsFromD1",dataObj.searchCarById(id,"Eagle_Garage"));
-		model.addAttribute("carsFromD2",dataObj.searchCarById(id,"Giant_Garage"));
-		model.addAttribute("carsFromD3",dataObj.searchCarById(id,"Super_Garage"));
-		return "viewCar.html";
-	}
 	
-	/**Searches the car by make and returns the result
-	 * @return A HTML page which acts as view car page
-	 */
-	@GetMapping("/searchMake")
-	public String searchCarMake(Model model, @RequestParam String make)
-	{
-		model.addAttribute("carsFromD1",dataObj.searchCarByMake(make,"Eagle_Garage"));
-		model.addAttribute("carsFromD2",dataObj.searchCarByMake(make,"Giant_Garage"));
-		model.addAttribute("carsFromD3",dataObj.searchCarByMake(make,"Super_Garage"));
-		return "viewCar.html";
-	}
+	// ----------------------------------------------------------------------------------------------
 	
-	/**Searches the car by model and returns the result
-	 * @return A HTML page which acts as view car page
-	 */
-	@GetMapping("/searchModel")
-	public String searchCarModel(Model model, @RequestParam String modelForCar)
-	{
-		model.addAttribute("carsFromD1",dataObj.searchCarByModel(modelForCar,"Eagle_Garage"));
-		model.addAttribute("carsFromD2",dataObj.searchCarByModel(modelForCar,"Giant_Garage"));
-		model.addAttribute("carsFromD3",dataObj.searchCarByModel(modelForCar,"Super_Garage"));
-		return "viewCar.html";
-	}
 	
 	/**Searches the car by price range (min-max) and returns the result
 	 * @return A HTML page which acts as view car page
 	 */
-	@GetMapping("/searchPrice")
-	public String searchCarPrice(Model model, @RequestParam double min, @RequestParam double max )
+	@GetMapping("/searchParameters")
+	public String searchCarPrice(Model model,@RequestParam String make,
+			@RequestParam String modelForCar, @RequestParam String min, @RequestParam String max )
 	{
-		model.addAttribute("carsFromD1",dataObj.searchCarByPrice(min,max,"Eagle_Garage"));
-		model.addAttribute("carsFromD2",dataObj.searchCarByPrice(min,max,"Giant_Garage"));
-		model.addAttribute("carsFromD3",dataObj.searchCarByPrice(min,max,"Super_Garage"));
+		boolean makeEmpty = make.isEmpty();
+		boolean modelEmpty = modelForCar.isEmpty();
+		
+		String makeValue = make.toString();
+//		System.out.println(makeValue);
+		
+		String modelValue = modelForCar.toString();
+//		System.out.println(modelValue);
+		
+		//search by make
+		ArrayList<Car> searchCarByMakeFromD1 = dataObj.searchCarByMake(make,"Eagle_Garage");
+		ArrayList<Car> searchCarByMakeFromD2 = dataObj.searchCarByMake(make,"Giant_Garage");
+		ArrayList<Car> searchCarByMakeFromD3 = dataObj.searchCarByMake(make,"Super_Garage");
+		
+		//search by model
+		ArrayList<Car> searchCarByModelFromD1 = dataObj.searchCarByModel(modelForCar,"Eagle_Garage");
+		ArrayList<Car> searchCarByModelFromD2 = dataObj.searchCarByModel(modelForCar,"Giant_Garage");
+		ArrayList<Car> searchCarByModelFromD3 = dataObj.searchCarByModel(modelForCar,"Super_Garage");
+		
+		if(min.equals("")) {
+			min="0";
+		}
+		
+		if(max.equals("")) {
+			max="1000000";
+		}
+		
+		//search by price
+		ArrayList<Car> searchCarByPriceFromD1 = dataObj.searchCarByPrice(Double.valueOf(min),Double.valueOf(max),"Eagle_Garage");
+		ArrayList<Car> searchCarByPriceFromD2 = dataObj.searchCarByPrice(Double.valueOf(min),Double.valueOf(max),"Giant_Garage");
+		ArrayList<Car> searchCarByPriceFromD3 = dataObj.searchCarByPrice(Double.valueOf(min),Double.valueOf(max),"Super_Garage");
+		
+		ArrayList<Car> listaD1 = dataObj.getCars("Eagle_Garage");
+//		System.out.println(listaD1.size());
+		
+		List<Car> collectAllD1=new ArrayList<>();
+		
+		if(!makeValue.equals("") && !modelValue.equals("")) {
+			for(int i=0;i<listaD1.size();i++) {
+				if(listaD1.get(i).getMake().equals(makeValue) && listaD1.get(i).getModel().equals(modelValue) 
+						&& listaD1.get(i).getPrice()>Integer.valueOf(min) && listaD1.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD1.add(listaD1.get(i));
+				}
+			}
+		}
+		
+		if(makeValue.equals("") && !modelValue.equals("")) {
+			for(int i=0;i<listaD1.size();i++) {
+				if(listaD1.get(i).getModel().equals(modelValue) 
+						&& listaD1.get(i).getPrice()>Integer.valueOf(min) && listaD1.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD1.add(listaD1.get(i));
+				}
+			}
+		}
+		
+		if(!makeValue.equals("") && modelValue.equals("") ) {
+			for(int i=0;i<listaD1.size();i++) {
+				if(listaD1.get(i).getMake().equals(makeValue)  
+						&& listaD1.get(i).getPrice()>Integer.valueOf(min) && listaD1.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD1.add(listaD1.get(i));
+				}
+			}
+		}
+		
+		if(makeValue.equals("") && modelValue.equals("") ) {
+			for(int i=0;i<listaD1.size();i++) {
+				if(listaD1.get(i).getPrice()>Integer.valueOf(min) && listaD1.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD1.add(listaD1.get(i));
+				}
+			}
+		}
+		
+		
+		ArrayList<Car> listaD2 = dataObj.getCars("Giant_Garage");
+		List<Car> collectAllD2=new ArrayList<>();	
+		
+		if(!makeValue.equals("") && !modelValue.equals("")) {
+			for(int i=0;i<listaD2.size();i++) {
+				if(listaD2.get(i).getMake().equals(makeValue) && listaD2.get(i).getModel().equals(modelValue) 
+						&& listaD2.get(i).getPrice()>Integer.valueOf(min) && listaD2.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD2.add(listaD2.get(i));
+				}
+			}
+		}
+		
+		if(makeValue.equals("") && !modelValue.equals("")) {
+			for(int i=0;i<listaD2.size();i++) {
+				if(listaD2.get(i).getModel().equals(modelValue) 
+						&& listaD2.get(i).getPrice()>Integer.valueOf(min) && listaD2.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD2.add(listaD2.get(i));
+				}
+			}
+		}
+		
+		if(!makeValue.equals("") && modelValue.equals("")) {
+			for(int i=0;i<listaD2.size();i++) {
+				if(listaD2.get(i).getMake().equals(makeValue)  
+						&& listaD2.get(i).getPrice()>Integer.valueOf(min) && listaD2.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD2.add(listaD2.get(i));
+				}
+			}
+		}	
+		
+		if(makeValue.equals("") && modelValue.equals("")) {
+			for(int i=0;i<listaD2.size();i++) {
+				if(listaD2.get(i).getPrice()>Integer.valueOf(min) && listaD2.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD2.add(listaD2.get(i));
+				}
+			}
+		}
+		
+		
+		ArrayList<Car> listaD3 = dataObj.getCars("Super_Garage");
+		List<Car> collectAllD3=new ArrayList<>();
+		
+		if(!makeValue.equals("") && !modelValue.equals("")) {
+			for(int i=0;i<listaD3.size();i++) {
+				if(listaD3.get(i).getMake().equals(makeValue) && listaD3.get(i).getModel().equals(modelValue) 
+						&& listaD3.get(i).getPrice()>Integer.valueOf(min) && listaD3.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD3.add(listaD3.get(i));
+				}
+			}
+		}
+		
+		if(makeValue.equals("") && !modelValue.equals("")) {
+			for(int i=0;i<listaD3.size();i++) {
+				if(listaD3.get(i).getModel().equals(modelValue) 
+						&& listaD3.get(i).getPrice()>Integer.valueOf(min) && listaD3.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD3.add(listaD3.get(i));
+				}
+			}
+		}
+		
+		if(!makeValue.equals("") && modelValue.equals("")) {
+			for(int i=0;i<listaD3.size();i++) {
+				if(listaD3.get(i).getMake().equals(makeValue)  
+						&& listaD3.get(i).getPrice()>Integer.valueOf(min) && listaD3.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD3.add(listaD3.get(i));
+				}
+			}
+		}
+		
+		if(makeValue.equals("") && modelValue.equals("") ) {
+			for(int i=0;i<listaD3.size();i++) {
+				if(listaD3.get(i).getPrice()>Integer.valueOf(min) && listaD3.get(i).getPrice()<Integer.valueOf(max)) {
+					collectAllD3.add(listaD3.get(i));
+				}
+			}
+		}
+		
+		
+		model.addAttribute("carsFromD1",collectAllD1);
+		model.addAttribute("carsFromD2",collectAllD2);
+		model.addAttribute("carsFromD3",collectAllD3);
 		return "viewCar.html";
 	}
+	
+	// -------------------------------------------------------------------------------------------
 	
 	/**Return a receipt page of the car and delete the car from database
 	 * @return A HTML page which acts as receipt page for car
