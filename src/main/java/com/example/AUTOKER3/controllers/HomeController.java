@@ -1,11 +1,7 @@
 package com.example.AUTOKER3.controllers;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -289,9 +285,19 @@ public class HomeController {
 	public String purchaseCar(Model model,  @PathVariable String dealership, @PathVariable int id)
 	{
 		Car car = dataObj.getCarById(id, dealership);
-		DecimalFormat decimalFormat = new DecimalFormat("#########0.##");
-		double taxes=Double.parseDouble(decimalFormat.format(car.getPrice()*0.13));
-		car.setPrice(Double.parseDouble(decimalFormat.format(car.getPrice()+taxes)));
+		
+//		DecimalFormat decimalFormat = new DecimalFormat("#########.##");
+		Double taxes= car.getPrice()*0.13;
+		if(String.valueOf(taxes).length()>7) {
+			  String substring = taxes.toString().substring(0, 7);
+			  taxes=Double.valueOf(substring);
+		}
+			
+		String value=String.valueOf(car.getPrice()+taxes);
+		Double price=Double.valueOf(value.substring(0, 6));
+			
+		car.setPrice(price);
+		
 		model.addAttribute("car",car);
 		model.addAttribute("taxes",taxes);
 		dataObj.deleteCar(id, dealership);
