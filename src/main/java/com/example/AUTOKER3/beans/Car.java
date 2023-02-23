@@ -1,10 +1,9 @@
 package com.example.AUTOKER3.beans;
 
-import java.util.Arrays;
-
 public class Car {
 
 	private int id;
+	
 	private String make;
 	private String model;
 	private String colour;

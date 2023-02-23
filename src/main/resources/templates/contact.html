@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact form</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" href="contactStyle.css">
+</head>
+<body>
+<header>
+    <img src="../static/Logo.jpg" th:src="@{/Logo.jpg}">
+    <nav>
+        <ul>
+            <li><a href="/" th:href="@{/}">Home</a></li>
+            <li><a href="/list" th:href="@{/list}">Add</a></li>
+            <li><a href="/view" th:href="@{/view}">View</a></li>
+            <li><a href="/search" th:href="@{/search}">Search</a></li>
+            <li><a href="/contact" th:href="@{/contact}">Contact</a></li>
+            <li><a href="/logout" th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+	<div class="container">
+		<h1>Contact Me</h1>
+		<p>Feel free to contact me and I will get back to you as soon as I
+			can!</p>
+		<form action="#" th:action="@{/mail}">
+			<label for="name">Name:</label> 
+			<input type="text" name="name" id="name" required> 
+			<label for="telNumber">Telephone Number:</label>
+			<input type="text" name="telNumber" id="telNumber">
+			<label for="subject">Subject:</label>
+			<input type="text" name="subject" id="subject" required> 
+			<label for="message">Message</label>
+			<textarea name="message" cols="30" rows="10" required></textarea>
+			<input type="submit" value="Send">
+		</form>
+	</div>
+</body>
+</html>
