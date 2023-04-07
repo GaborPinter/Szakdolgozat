@@ -12,12 +12,17 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.AUTOKER3.beans.Car;
+import com.example.AUTOKER3.repository.CarRepository;
+import com.example.AUTOKER3.repository.UserRepository;
 
 @Repository
 public class DatabaseAccess {
 
 	@Autowired
 	NamedParameterJdbcTemplate jdbc;
+	
+	@Autowired
+	CarRepository carRepository;
 	
 	/**Adds a car to database
 	 * @param car An instance of class Car
@@ -32,6 +37,7 @@ public class DatabaseAccess {
 		parameters.addValue("colour",car.getColour());
 		parameters.addValue("price",car.getPrice());
 		parameters.addValue("vin",car.getVin());
+//		parameters.addValue("file", car.getFile());
 		jdbc.update(query, parameters);
 	}
 	

@@ -1,7 +1,21 @@
 package com.example.AUTOKER3.beans;
 
+import java.util.Arrays;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "car")
 public class Car {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	private String make;
@@ -19,12 +33,16 @@ public class Car {
 	//Dealership names
 	private String[] dealerships = {"Eagle_Garage","Giant_Garage","Super_Garage"};
 	
+//	@Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String file;
+	
 	public Car(){
 		
 	}
 	
 	public Car(int id, String make, String model, String colour, double price, String vin, String dealership,
-			String newDealership, String[] dealerships) {
+			String newDealership, String[] dealerships, String file) {
 		super();
 		this.id = id;
 		this.make = make;
@@ -35,6 +53,7 @@ public class Car {
 		this.dealership = dealership;
 		this.newDealership = newDealership;
 		this.dealerships = dealerships;
+//		this.file = file;
 	}
 
 	public int getId() {
@@ -109,11 +128,22 @@ public class Car {
 		this.dealerships = dealerships;
 	}
 
+//	public String getFile() {
+//		return file;
+//	}
+//
+//	public void setFile(String file) {
+//		this.file = file;
+//	}
+
 	@Override
 	public String toString() {
 		return "Car [id=" + id + ", make=" + make + ", model=" + model + ", colour=" + colour + ", price=" + price
-				+ ", vin=" + vin + ", dealership=" + dealership;
+				+ ", vin=" + vin + ", dealership=" + dealership + ", newDealership=" + newDealership + ", dealerships="
+				+ Arrays.toString(dealerships) + ", image=" + /*file*/  "]";
 	}
+
+	
 	
 	
 	

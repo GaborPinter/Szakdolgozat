@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<meta charset="ISO-8859-1">
+<title>PayPal</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../static/style.css" th:href="@{/style.css}">
+<link rel="stylesheet" href="iconStyle.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<style>
+* {
+	box-sizing: border-box;
+}
+
+.row {
+	display: -ms-flexbox; /* IE10 */
+	display: flex;
+	-ms-flex-wrap: wrap; /* IE10 */
+	flex-wrap: wrap;
+	margin: 0 -16px;
+}
+
+.col-25 {
+	-ms-flex: 25%; /* IE10 */
+	flex: 25%;
+}
+
+.col-50 {
+	-ms-flex: 50%; /* IE10 */
+	flex: 50%;
+}
+
+.col-75 {
+	-ms-flex: 75%; /* IE10 */
+	flex: 75%;
+}
+
+.col-25, .col-50, .col-75 {
+	padding: 0 16px;
+}
+
+.container {
+	background-color: #f2f2f2;
+	padding: 5px 20px 15px 20px;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+}
+
+input[type=text] {
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+label {
+	margin-bottom: 10px;
+	display: block;
+}
+
+.icon-container {
+	margin-bottom: 20px;
+	padding: 7px 0;
+	font-size: 24px;
+}
+
+.btn {
+	background-color: #4CAF50;
+	color: white;
+	padding: 12px;
+	margin: 10px 0;
+	border: none;
+	width: 100%;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 17px;
+}
+
+.btn:hover {
+	background-color: #45a049;
+}
+
+hr {
+	border: 1px solid lightgrey;
+}
+
+span.price {
+	float: right;
+	color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media ( max-width : 800px) {
+	.row {
+		flex-direction: column-reverse;
+	}
+	.col-25 {
+		margin-bottom: 20px;
+	}
+}
+</style>
+
+</head>
+<body>
+	<header>
+		<img src="../static/Logo.jpg" th:src="@{/Logo.jpg}">
+		<nav>
+			<ul>
+				<li><a href="/home" th:href="@{/home}">Home</a></li>
+				<li><a href="/list" th:href="@{/list}">Add</a></li>
+				<li><a href="/view" th:href="@{/view}">View</a></li>
+				<li><a href="/search" th:href="@{/search}">Search</a></li>
+				<li><a href="/contact" th:href="@{/contact}">Contact</a></li>
+				<li><a href="/payPalHome" th:href="@{/payPalHome}">PayPal</a></li>
+				 <li><a href="/map" th:href="@{/map}">Map</a></li>
+				<li><a href="/logout" th:href="@{/logout}">Logout</a></li>
+			</ul>
+
+		</nav>
+	</header>
+	<div class="row">
+		<div class="col-75">
+			<div class="container">
+				<form method="post" action="/pay">
+					<div class="col-50">
+						<h2>Payment</h2>
+						<br>
+						
+						<label for="price">Deposit</label> <input type="text" id="price"
+							name="price" placeholder="Enter Deposit" pattern="[1-9].{0,}"
+							title="Deposit must be greater than zero and the first character cannot be zero">
+						<label for="currency">Currency</label> <input type="text"
+							id="currency" name="currency" placeholder="Enter Currency">
+						<label for="method">Payment Method</label> <input type="text"
+							id="method" name="method" placeholder="Payment Method"
+							pattern="[Pp]ay[Pp]al"
+							title="Currently, only the PayPal payment option is available">
+						<label for="intent"> Purpose</label>
+						 <select id="intent" name="intent" style="width:926px; height:45px;">
+							<option value="Sale">Sale</option>
+							<option value="Authorize">Authorize</option>
+							<option value="Order">Order</option>
+						</select> 
+						
+<!-- 						<input type="text" id="intent" name="intent" placeholder="Purpose">  -->
+							
+							<br>
+							<br>
+							<label for="description">Payment
+							Description</label> <input type="text" id="description"
+							name="description" placeholder="Payment Description">
+
+					</div>
+
+					<input type="submit" value="Continue to checkout" class="btn">
+				</form>
+			</div>
+		</div>
+		<!--     <div class="col-25"> -->
+		<!--         <div class="container"> -->
+		<!--             <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>1</b></span></h4> -->
+		<!--             <p><a href="#">Donation</a> <span class="price">$1</span></p> -->
+		<!-- <!--             <p><a href="#">Product 2</a> <span class="price">$4</span></p> -->
+		 -->
+		<!-- <!--             <p><a href="#">Product 3</a> <span class="price">$3</span></p> -->
+		 -->
+		<!-- <!--             <p><a href="#">Product 4</a> <span class="price">$2</span></p> -->
+		 -->
+		<!--             <hr> -->
+		<!--             <p>Total <span class="price" style="color:black"><b>$1</b></span></p> -->
+		<!--         </div> -->
+		<!--     </div> -->
+	</div>
+	<br>
+	<br>
+	<br>
+	<div class="footer">
+		<h3>&copy 2022 Copyright AUTOKER</h3>
+		<div class="wrapper" >
+			<a href="https://www.facebook.com/"><div class="icon facebook">
+				<div class="tooltip">Facebook</div>
+				<span><i class="fab fa-facebook-f"></i></span>
+			</div></a>
+			<a href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D"><div class="icon twitter">
+				<div class="tooltip">Twitter</div>
+				<span><i class="fab fa-twitter"></i></span>
+			</div></a>
+			<a href="https://www.instagram.com/"><div class="icon instagram">
+				<div class="tooltip">Instagram</div>
+				<span><i class="fab fa-instagram"></i></span>
+			</div></a>
+			<a href="https://github.com/"><div class="icon github">
+				<div class="tooltip">Github</div>
+				<span><i class="fab fa-github"></i></span>
+			</div></a>
+			<a href="https://www.youtube.com/"><div class="icon youtube">
+				<div class="tooltip">YouTube</div>
+				<span><i class="fab fa-youtube"></i></span>
+			</div></a>
+		</div>
+		<br>
+		<br>
+	</div>
+</body>
+</html>

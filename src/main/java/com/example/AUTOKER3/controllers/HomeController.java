@@ -1,6 +1,8 @@
 package com.example.AUTOKER3.controllers;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -14,12 +16,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.AUTOKER3.beans.Car;
+import com.example.AUTOKER3.beans.Role;
+import com.example.AUTOKER3.beans.User;
+import com.example.AUTOKER3.beans.UserRegistrationDto;
 import com.example.AUTOKER3.database.DatabaseAccess;
+import com.example.AUTOKER3.repository.UserRepository;
 import com.example.AUTOKER3.service.EmailSenderService;
+import com.example.AUTOKER3.service.UserServiceImpl;
 
 @Controller
 public class HomeController {
-
+	
 	@Autowired
 	private DatabaseAccess dataObj;
 
@@ -31,11 +38,25 @@ public class HomeController {
 	 * 
 	 * @return A HTML page which acts as home page
 	 */
-//	@GetMapping("/")
-//	public String goHome(Model model)
-//	{
-//		return "home.html";
-//	}
+	@GetMapping("/")
+	public String gotoWelcomePage() {
+		return "loginPage.html";
+	}
+	
+	@GetMapping("/loginPage")
+    public String login() {
+        return "loginPage.html";
+    }
+	
+	@GetMapping("/home")
+    public String gotoHomePage() {
+		if(userOrAdmin().equals("ROLE_USER")) {
+			return "home.html";
+		}else {
+			return "adminHome.html";
+		}
+        
+    }
 
 	/**
 	 * Directs to add page through which user can add a car
@@ -45,7 +66,12 @@ public class HomeController {
 	@GetMapping("/list")
 	public String goToAddCarPage(Model model) {
 		model.addAttribute("car", new Car());
-		return "addCar.html";
+		if(userOrAdmin().equals("ROLE_USER")) {
+			return "addCar.html";
+		}else {
+			return "adminAddCar.html";
+		}
+		
 	}
 
 	@GetMapping("/contact")
@@ -63,7 +89,7 @@ public class HomeController {
 	
 	@GetMapping("/logout")					//jobbra kene igazitani
 	public String goToLoginCarPage(Model model) {
-		return "home.html";
+		return "loginPage.html";
 	}
 
 	/**
@@ -73,22 +99,54 @@ public class HomeController {
 	 */
 	@GetMapping("/add")
 	public String addCar(Model model, @ModelAttribute Car car) {
+		
+//		Object attribute = model.getAttribute("file");
+//		System.out.println(attribute);
+//		car.setFile("FILE"+car.getVin());
+		
 		dataObj.addCar(car);
 		model.addAttribute("car", new Car());
+		if(userOrAdmin().equals("ROLE_USER")) {
 		return "addCar.html";
+		}else {
+			return "adminAddCar.html";
+		}
 	}
 
 	/**
 	 * Views/Returns all cars present in database
 	 * 
 	 * @return A HTML page which acts as view car page
+	 * @throws SecurityException 
+	 * @throws NoSuchFieldException 
 	 */
 	@GetMapping("/view")
 	public String viewCars(Model model) {
+	
 		model.addAttribute("carsFromD1", dataObj.getCars("Eagle_Garage"));
 		model.addAttribute("carsFromD2", dataObj.getCars("Giant_Garage"));
 		model.addAttribute("carsFromD3", dataObj.getCars("Super_Garage"));
+
+		if(userOrAdmin().equals("ROLE_USER")) {
 		return "viewCar.html";
+		}else {
+		return "adminViewCar.html";
+		}
+			
+	}
+	
+	@GetMapping("/map")
+	public String goToMap(Model model) {
+		return "map.html";
+	}
+
+	private String userOrAdmin() {
+		String name ="";
+		Collection<Role> roles = UserServiceImpl.roles;
+		for (Role role : roles) {
+		name = role.getName();
+		}
+		return name;
 	}
 
 	/**
@@ -136,7 +194,11 @@ public class HomeController {
 	 */
 	@GetMapping("/search")
 	public String goToSearchPage() {
+		if(userOrAdmin().equals("ROLE_USER")) {
 		return "searchCar.html";
+		}else {
+			return "adminSearchCar.html";
+			}
 	}
 
 	/**
@@ -315,7 +377,12 @@ public class HomeController {
 		model.addAttribute("carsFromD1", collectAllD1);
 		model.addAttribute("carsFromD2", collectAllD2);
 		model.addAttribute("carsFromD3", collectAllD3);
-		return "viewCar.html";
+		
+		if(userOrAdmin().equals("ROLE_USER")) {
+			return "viewCar.html";
+			}else {
+				return "adminViewCar.html";
+				}
 	}
 
 	// -------------------------------------------------------------------------------------------
@@ -343,7 +410,7 @@ public class HomeController {
 
 		model.addAttribute("car", car);
 		model.addAttribute("taxes", taxes);
-		dataObj.deleteCar(id, dealership);
+//		dataObj.deleteCar(id, dealership);
 		return "receipt.html";
 	}
 }

@@ -16,32 +16,34 @@ public class DatabaseConfig {
 	 * @param dataSource An instance of class DataSource
 	 * @return NamedParameterJdbcTemplate An instance of class NamedParameterJdbcTemplate
 	 */
-	@Bean
-	public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource)
-	{
-		return new NamedParameterJdbcTemplate(dataSource);
-	}
+//	@Bean
+//	public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource)
+//	{
+//		return new NamedParameterJdbcTemplate(dataSource);
+//	}
 	
 	/**Create connection to the database - h2
 	 * @return dataSource An instance of class DataSource
 	 */
-	@Bean
-	public DataSource dataSource()
-	{
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("org.h2.Driver");
-		dataSource.setUrl("jdbc:h2:mem:testdb");
-		dataSource.setUsername("sa");
-		dataSource.setPassword("");
-		return dataSource;
-	}
+//	@Bean
+//	public DataSource dataSource()
+//	{
+//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		dataSource.setDriverClassName("org.h2.Driver");
+//		dataSource.setUrl("jdbc:h2:mem:testdb");
+//		dataSource.setUsername("sa");
+//		dataSource.setPassword("");
+//		return dataSource;
+//		
+//		
+//	}
 	
 	/**Define default SQL files that will be executed when project starts 
 	 */
-	@Bean
-	public DataSource loadSchema()
-	{
-		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("classpath:schema.sql").build();
-	}
+//	@Bean
+//	public DataSource loadSchema()
+//	{
+//		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("classpath:schema.sql").build();
+//	}
 	
 }

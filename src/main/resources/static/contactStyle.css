@@ -47,7 +47,7 @@ header li a {
 
 body {
 	font-family:Verdana, Geneva, sans-serif;
-    background: white;
+    background: #F2FDFD;
     text-align: center;
 }
 
@@ -126,9 +126,9 @@ textarea:focus {
     outline: 1px solid #828282;
 }
 
-a {
-    color: #828282;
-}
+/* a { */
+/*     color: black; */
+/* } */
 
 a:hover, a:active {
     background-color: #FF0000;
@@ -138,7 +138,7 @@ a:hover, a:active {
 .footer {
   text-align: center;
   background-color: #FF0000;
-  color: white;
+  color: black;
   padding: 2px;
   width: 100%;
 }

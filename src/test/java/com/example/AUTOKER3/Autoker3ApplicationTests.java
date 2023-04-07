@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.AUTOKER3.beans.Car;
 import com.example.AUTOKER3.controllers.HomeController;
 import com.example.AUTOKER3.database.DatabaseAccess;
-import com.example.AUTOKER3.login.AuthenticationService;
 
 @SpringBootTest
 class Autoker3ApplicationTests {
@@ -28,8 +27,6 @@ class Autoker3ApplicationTests {
 	@Autowired
 	private DatabaseAccess databaseAccess=new DatabaseAccess();
 	
-	@Autowired
-	private AuthenticationService authenticationService=new AuthenticationService();
 
 	@Test
 	public void testDealerShipsValue() {
@@ -59,7 +56,6 @@ class Autoker3ApplicationTests {
 	public void testHomeControllerNotNull() {
 		assertThat(homeController).isNotNull();
 		assertThat(databaseAccess).isNotNull();
-		assertThat(authenticationService).isNotNull();
 	}
 	
 	@Test

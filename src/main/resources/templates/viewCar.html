@@ -3,95 +3,141 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>View cars</title>
-<link rel="stylesheet" type="text/css" media="all" href="../static/style.css" th:href="@{/style.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../static/style.css" th:href="@{/style.css}" />
+<link rel="stylesheet" href="iconStyle.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 <body>
-<header>
-    <img src="../static/Logo.jpg" th:src="@{/Logo.jpg}">
-    <nav>
-        <ul>
-            <li><a href="/" th:href="@{/}">Home</a></li>
-            <li><a href="/list" th:href="@{/list}">Add</a></li>
-            <li><a href="/view" th:href="@{/view}">View</a></li>
-            <li><a href="/search" th:href="@{/search}">Search</a></li>
-            <li><a href="/contact" th:href="@{/contact}">Contact</a></li>
-            <li><a href="/logout" th:href="@{/logout}">Logout</a></li>
-        </ul>
-    </nav>
-</header>
-<h1 style="text-align:center; margin-top:100px;">View Cars</h1>
-<table class="cars">
-<caption>Eagle Garage</caption>
-<tr>
-<th>Make</th>
-<th>Model</th>
-<th>Colour</th>
-<th>Price</th>
-<th>VIN</th>
-<th>Edit</th>
-<th>Delete</th>
-<th>Purchase</th>
-</tr>
-<tr th:each="i : ${carsFromD1}">
-<td th:text="${i.make}">Make</td>
-<td th:text="${i.model}">Model</td>
-<td th:text="${i.colour}">Colour</td>
-<td th:text="'$'+${i.price}">Price</td>
-<td th:text="${i.vin}">VIN</td>
-<td><a href="" th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td>
-<td><a href="" th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td>
-<td><a href="" th:href="@{/purchase/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">PURCHASE</a></td>
-</tr>
-</table>
-<br>
-<br>
-<table class="cars">
-<caption>Giant Garage</caption>
-<tr>
-<th>Make</th>
-<th>Model</th>
-<th>Colour</th>
-<th>Price</th>
-<th>VIN</th>
-<th>Edit</th>
-<th>Delete</th>
-<th>Purchase</th>
-</tr>
-<tr th:each="i : ${carsFromD2}">
-<td th:text="${i.make}">Make</td>
-<td th:text="${i.model}">Model</td>
-<td th:text="${i.colour}">Colour</td>
-<td th:text="'$'+${i.price}">Price</td>
-<td th:text="${i.vin}">VIN</td>
-<td><a href="" th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td>
-<td><a href="" th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td>
-<td><a href="" th:href="@{/purchase/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">PURCHASE</a></td>
-</tr>
-</table>
-<br>
-<br>
-<table class="cars">
-<caption>Super Garage</caption>
-<tr>
-<th>Make</th>
-<th>Model</th>
-<th>Colour</th>
-<th>Price</th>
-<th>VIN</th>
-<th>Edit</th>
-<th>Delete</th>
-<th>Purchase</th>
-</tr>
-<tr th:each="i : ${carsFromD3}">
-<td th:text="${i.make}">Make</td>
-<td th:text="${i.model}">Model</td>
-<td th:text="${i.colour}">Colour</td>
-<td th:text="'$'+${i.price}">Price</td>
-<td th:text="${i.vin}">VIN</td>
-<td><a href="" th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td>
-<td><a href="" th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td>
-<td><a href="" th:href="@{/purchase/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">PURCHASE</a></td>
-</tr>
-</table>
+	<header>
+		<img src="../static/Logo.jpg" th:src="@{/Logo.jpg}">
+		<nav>
+			<ul>
+				<li><a href="/home" th:href="@{/home}">Home</a></li>
+				<li><a href="/list" th:href="@{/list}">Add</a></li>
+				<li><a href="/view" th:href="@{/view}">View</a></li>
+				<li><a href="/search" th:href="@{/search}">Search</a></li>
+				<li><a href="/contact" th:href="@{/contact}">Contact</a></li>
+				<li><a href="/payPalHome" th:href="@{/payPalHome}">PayPal</a></li>
+				<li><a href="/map" th:href="@{/map}">Map</a></li>
+				<li><a href="/logout" th:href="@{/logout}">Logout</a></li>
+			</ul>
+		</nav>
+	</header>
+	<h1 style="text-align: center; margin-top: 100px;">View Cars</h1>
+
+	<table class="cars">
+		<caption>Eagle Garage</caption>
+		<tr>
+			<th>Make</th>
+			<th>Model</th>
+			<th>Colour</th>
+			<th>Price</th>
+			<th>VIN</th>
+			<!-- 			<th>Edit</th> -->
+			<!-- 			<th>Delete</th> -->
+			<th>INFO</th>
+		</tr>
+		<tr th:each="i : ${carsFromD1}">
+			<td th:text="${i.make}">Make</td>
+			<td th:text="${i.model}">Model</td>
+			<td th:text="${i.colour}">Colour</td>
+			<td th:text="'$'+${i.price}">Price</td>
+			<td th:text="${i.vin}">VIN</td>
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td> -->
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td> -->
+			<td><a href=""
+				th:href="@{/purchase/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
+		</tr>
+	</table>
+
+
+	<br>
+	<br>
+	<table class="cars">
+		<caption>Giant Garage</caption>
+		<tr>
+			<th>Make</th>
+			<th>Model</th>
+			<th>Colour</th>
+			<th>Price</th>
+			<th>VIN</th>
+			<!-- 			<th>Edit</th> -->
+			<!-- 			<th>Delete</th> -->
+			<th>INFO</th>
+		</tr>
+		<tr th:each="i : ${carsFromD2}">
+			<td th:text="${i.make}">Make</td>
+			<td th:text="${i.model}">Model</td>
+			<td th:text="${i.colour}">Colour</td>
+			<td th:text="'$'+${i.price}">Price</td>
+			<td th:text="${i.vin}">VIN</td>
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td> -->
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td> -->
+			<td><a href=""
+				th:href="@{/purchase/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
+		</tr>
+	</table>
+	<br>
+	<br>
+	<table class="cars">
+		<caption>Super Garage</caption>
+		<tr>
+			<th>Make</th>
+			<th>Model</th>
+			<th>Colour</th>
+			<th>Price</th>
+			<th>VIN</th>
+			<!-- 			<th>Edit</th> -->
+			<!-- 			<th>Delete</th> -->
+			<th>INFO</th>
+		</tr>
+		<tr th:each="i : ${carsFromD3}">
+			<td th:text="${i.make}">Make</td>
+			<td th:text="${i.model}">Model</td>
+			<td th:text="${i.colour}">Colour</td>
+			<td th:text="'$'+${i.price}">Price</td>
+			<td th:text="${i.vin}">VIN</td>
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td> -->
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td> -->
+			<td><a href=""
+				th:href="@{/purchase/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
+		</tr>
+	</table>
+	<br>
+	<br>
+	<br>
+	<div class="footer">
+		<h3>&copy 2022 Copyright AUTOKER</h3>
+		<div class="wrapper">
+			<a href="https://www.facebook.com/"><div class="icon facebook">
+					<div class="tooltip">Facebook</div>
+					<span><i class="fab fa-facebook-f"></i></span>
+				</div></a> <a
+				href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D"><div
+					class="icon twitter">
+					<div class="tooltip">Twitter</div>
+					<span><i class="fab fa-twitter"></i></span>
+				</div></a> <a href="https://www.instagram.com/"><div
+					class="icon instagram">
+					<div class="tooltip">Instagram</div>
+					<span><i class="fab fa-instagram"></i></span>
+				</div></a> <a href="https://github.com/"><div class="icon github">
+					<div class="tooltip">Github</div>
+					<span><i class="fab fa-github"></i></span>
+				</div></a> <a href="https://www.youtube.com/"><div class="icon youtube">
+					<div class="tooltip">YouTube</div>
+					<span><i class="fab fa-youtube"></i></span>
+				</div></a>
+		</div>
+		<br> <br>
+	</div>
 </body>
 </html>

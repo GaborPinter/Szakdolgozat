@@ -10,10 +10,13 @@
     <img src="../static/Logo.jpg" th:src="@{/Logo.jpg}">
     <nav>
         <ul>
-            <li><a href="/" th:href="@{/}">Home</a></li>
+            <li><a href="/home" th:href="@{/home}">Home</a></li>
             <li><a href="/list" th:href="@{/list}">Add</a></li>
             <li><a href="/view" th:href="@{/view}">View</a></li>
             <li><a href="/search" th:href="@{/search}">Search</a></li>
+            <li><a href="/contact" th:href="@{/contact}">Contact</a></li>
+            <li><a href="/payPalHome" th:href="@{/payPalHome}">PayPal</a></li>
+            <li><a href="/logout" th:href="@{/logout}">Logout</a></li>
         </ul>
     </nav>
 </header>
@@ -36,6 +39,9 @@
 </select>
 <input type="submit" value="Confirm">
 </form>
+</div>
+<div class="footer">
+  <p>AUTOKER</p>
 </div>
 </body>
 </html>
