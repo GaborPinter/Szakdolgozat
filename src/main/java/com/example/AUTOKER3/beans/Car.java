@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import org.springframework.web.multipart.MultipartFile;
+
 @Entity
 @Table(name = "car")
 public class Car {
@@ -35,14 +37,15 @@ public class Car {
 	
 //	@Lob
 //	@Column(columnDefinition = "MEDIUMBLOB")
-//	private String file;
+//	private MultipartFile photo;
+	
 	
 	public Car(){
 		
 	}
 	
 	public Car(int id, String make, String model, String colour, double price, String vin, String dealership,
-			String newDealership, String[] dealerships, String file) {
+			String newDealership, String[] dealerships, MultipartFile photo) {
 		super();
 		this.id = id;
 		this.make = make;
@@ -53,7 +56,7 @@ public class Car {
 		this.dealership = dealership;
 		this.newDealership = newDealership;
 		this.dealerships = dealerships;
-//		this.file = file;
+//		this.photo = photo;
 	}
 
 	public int getId() {
@@ -128,20 +131,26 @@ public class Car {
 		this.dealerships = dealerships;
 	}
 
-//	public String getFile() {
-//		return file;
-//	}
-//
-//	public void setFile(String file) {
-//		this.file = file;
-//	}
-
 	@Override
 	public String toString() {
 		return "Car [id=" + id + ", make=" + make + ", model=" + model + ", colour=" + colour + ", price=" + price
 				+ ", vin=" + vin + ", dealership=" + dealership + ", newDealership=" + newDealership + ", dealerships="
-				+ Arrays.toString(dealerships) + ", image=" + /*file*/  "]";
+				+ Arrays.toString(dealerships) + "]";
 	}
+
+//	public MultipartFile getPhoto() {
+//		return photo;
+//	}
+//
+//	public void setPhoto(MultipartFile photo) {
+//		this.photo = photo;
+//	}
+
+	
+
+	
+
+	
 
 	
 	

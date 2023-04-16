@@ -5,7 +5,7 @@
 <title>View cars</title>
 <link rel="stylesheet" type="text/css" media="all"
 	href="../static/style.css" th:href="@{/style.css}" />
-	<link rel="stylesheet" href="iconStyle.css">
+<link rel="stylesheet" href="iconStyle.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
@@ -18,43 +18,48 @@
 				<li><a href="/list" th:href="@{/list}">Add</a></li>
 				<li><a href="/view" th:href="@{/view}">View</a></li>
 				<li><a href="/search" th:href="@{/search}">Search</a></li>
-<!-- 				<li><a href="/contact" th:href="@{/contact}">Contact</a></li> -->
+				<li><a href="/contact" th:href="@{/contact}">Contact</a></li>
 <!-- 				<li><a href="/payPalHome" th:href="@{/payPalHome}">PayPal</a></li> -->
-<li><a href="/map" th:href="@{/map}">Map</a></li>
+				<li><a href="/map" th:href="@{/map}">Map</a></li>
 				<li><a href="/logout" th:href="@{/logout}">Logout</a></li>
 			</ul>
 		</nav>
 	</header>
 	<h1 style="text-align: center; margin-top: 100px;">View Cars</h1>
+
 	<table class="cars">
 		<caption>Eagle Garage</caption>
 		<tr>
 			<th>Make</th>
+<!-- 			<th>Image</th> -->
 			<th>Model</th>
 			<th>Colour</th>
 			<th>Price</th>
 			<th>VIN</th>
-			<th>EDIT</th>
-			<th>DELETE</th>
+			<!-- 			<th>Edit</th> -->
+			<!-- 			<th>Delete</th> -->
 			<th>INFO</th>
 			<th>PURCHASE</th>
 		</tr>
 		<tr th:each="i : ${carsFromD1}">
 			<td th:text="${i.make}">Make</td>
+<!-- 			<td th:text="${i.photo}">Image</td> -->
 			<td th:text="${i.model}">Model</td>
 			<td th:text="${i.colour}">Colour</td>
 			<td th:text="'$'+${i.price}">Price</td>
 			<td th:text="${i.vin}">VIN</td>
-			<td><a href=""
-				th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td>
-			<td><a href=""
-				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td>
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td> -->
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td> -->
 			<td><a href=""
 				th:href="@{/info/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
 			<td><a href=""
 				th:href="@{/buy/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">PURCHASE</a></td>
 		</tr>
 	</table>
+
+
 	<br>
 	<br>
 	<table class="cars">
@@ -65,8 +70,8 @@
 			<th>Colour</th>
 			<th>Price</th>
 			<th>VIN</th>
-			<th>EDIT</th>
-			<th>DELETE</th>
+			<!-- 			<th>Edit</th> -->
+			<!-- 			<th>Delete</th> -->
 			<th>INFO</th>
 			<th>PURCHASE</th>
 		</tr>
@@ -76,10 +81,10 @@
 			<td th:text="${i.colour}">Colour</td>
 			<td th:text="'$'+${i.price}">Price</td>
 			<td th:text="${i.vin}">VIN</td>
-			<td><a href=""
-				th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td>
-			<td><a href=""
-				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td>
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td> -->
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td> -->
 			<td><a href=""
 				th:href="@{/info/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
 			<td><a href=""
@@ -96,8 +101,8 @@
 			<th>Colour</th>
 			<th>Price</th>
 			<th>VIN</th>
-			<th>EDIT</th>
-			<th>DELETE</th>
+			<!-- 			<th>Edit</th> -->
+			<!-- 			<th>Delete</th> -->
 			<th>INFO</th>
 			<th>PURCHASE</th>
 		</tr>
@@ -107,10 +112,10 @@
 			<td th:text="${i.colour}">Colour</td>
 			<td th:text="'$'+${i.price}">Price</td>
 			<td th:text="${i.vin}">VIN</td>
-			<td><a href=""
-				th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td>
-			<td><a href=""
-				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td>
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/edit/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">EDIT</a></td> -->
+			<!-- 			<td><a href="" -->
+			<!-- 				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td> -->
 			<td><a href=""
 				th:href="@{/info/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
 			<td><a href=""
@@ -119,7 +124,8 @@
 	</table>
 	<br>
 	<br>
-<div class="footer">
+	<br>
+	<div class="footer">
 		<h3>&copy 2022 Copyright AUTOKER</h3>
 		<div class="wrapper">
 			<a href="https://www.facebook.com/"><div class="icon facebook">

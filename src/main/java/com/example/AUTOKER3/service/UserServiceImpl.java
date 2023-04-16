@@ -30,19 +30,22 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User save(UserRegistrationDto registrationDto) throws UsernameNotFoundException{
-//    	if(registrationDto.getFirstName().equalsIgnoreCase("ADMIN") && registrationDto.getLastName().equalsIgnoreCase("ADMIN")) {
-//    		User user = new User(registrationDto.getFirstName(),
-//    	            registrationDto.getLastName(), registrationDto.getEmail(),
-//    	            SpringSecurityConfiguration.passwordEncoder().encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_ADMIN")));
-//    		 return userRepository.save(user);
-//    	}else {
-    	
+    	if(registrationDto.getFirstName().equalsIgnoreCase("ADMIN") && registrationDto.getLastName().equalsIgnoreCase("ADMIN")) {
+    		User user = new User(registrationDto.getFirstName(),
+    	            registrationDto.getLastName(), registrationDto.getEmail(),
+    	            SpringSecurityConfiguration.passwordEncoder().encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_ADMIN")));
+    		 return userRepository.save(user);
+    	}else if(registrationDto.getFirstName().equalsIgnoreCase("COMPANY") && registrationDto.getLastName().equalsIgnoreCase("COMPANY")){
+    		User user = new User(registrationDto.getFirstName(),
+    	            registrationDto.getLastName(), registrationDto.getEmail(),
+    	            SpringSecurityConfiguration.passwordEncoder().encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_COMPANY")));
+    		 return userRepository.save(user);
+    	}else {
     		User user = new User(registrationDto.getFirstName(),
     	            registrationDto.getLastName(), registrationDto.getEmail(),
     	            SpringSecurityConfiguration.passwordEncoder().encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_USER")));
     		 return userRepository.save(user);
-//    	}
-       
+    	}
     }
 
     @Override

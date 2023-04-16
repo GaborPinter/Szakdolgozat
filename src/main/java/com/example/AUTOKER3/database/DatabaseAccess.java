@@ -1,19 +1,25 @@
 package com.example.AUTOKER3.database;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.AUTOKER3.beans.Car;
 import com.example.AUTOKER3.repository.CarRepository;
-import com.example.AUTOKER3.repository.UserRepository;
+
+import org.springframework.util.StringUtils;
 
 @Repository
 public class DatabaseAccess {
@@ -37,8 +43,11 @@ public class DatabaseAccess {
 		parameters.addValue("colour",car.getColour());
 		parameters.addValue("price",car.getPrice());
 		parameters.addValue("vin",car.getVin());
-//		parameters.addValue("file", car.getFile());
+		
+//		parameters.addValue("photo", car.getPhoto());
+		
 		jdbc.update(query, parameters);
+		
 	}
 	
 	/**Returns/gets all cars from database

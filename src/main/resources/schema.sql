@@ -1,6 +1,6 @@
 CREATE TABLE Eagle_Garage (id INT NOT NULL Primary Key AUTO_INCREMENT, make VARCHAR(100), model VARCHAR(100), colour VARCHAR(100), price DECIMAL(12,2), vin VARCHAR(100));
 
-INSERT INTO Eagle_Garage (make, model, colour, price, vin) VALUES 
+INSERT INTO Eagle_Garage (make,image, model, colour, price, vin) VALUES 
 ('Audi','Q5 Kmofort','Black',31900.00,'2FMZA53441BB85939'),
 ('Arctic Cat',' JAGUAR Z1 1100 EFI SNO PRO','Silver',5555.11,'1C3EL554X1N596684'),
 ('Sterling Truck','CONDOR','Grey',12500.00,'5TDZK3EH0AS022676'),

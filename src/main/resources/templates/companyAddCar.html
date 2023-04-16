@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Map</title>
+<title>Add car</title>
 <link rel="stylesheet" type="text/css" media="all"
 	href="../static/style.css" th:href="@{/style.css}" />
 <link rel="stylesheet" href="iconStyle.css">
@@ -15,51 +15,38 @@
 		<nav>
 			<ul>
 				<li><a href="/home" th:href="@{/home}">Home</a></li>
-				<!-- 				<li><a href="/list" th:href="@{/list}">Add</a></li> -->
+				<li><a href="/list" th:href="@{/list}">Add</a></li>
 				<li><a href="/view" th:href="@{/view}">View</a></li>
 				<li><a href="/search" th:href="@{/search}">Search</a></li>
 				<li><a href="/contact" th:href="@{/contact}">Contact</a></li>
-				<!-- 				<li><a href="/payPalHome" th:href="@{/payPalHome}">PayPal</a></li> -->
+				<!--             <li><a href="/payPalHome" th:href="@{/payPalHome}">PayPal</a></li> -->
 				<li><a href="/map" th:href="@{/map}">Map</a></li>
 				<li><a href="/logout" th:href="@{/logout}">Logout</a></li>
 			</ul>
 		</nav>
 	</header>
+	<div class="form-style" style="margin-top: 100px;">
+		<h2>Add a new car</h2>
+		<form action="#" th:action="@{/add}" th:object="${car}" method="post" enctype="multipart/form-data">
+			<input type="text" th:field="*{make}"
+				placeholder="Enter the make of car" required> <input
+				type="text" th:field="*{model}" placeholder="Enter the model of car"
+				required> <input type="text" th:field="*{colour}"
+				placeholder="Enter the colour of car" required> <input
+				type="number" th:field="*{price}" min="100" max="999999" step="1"
+				placeholder="Enter the price of car" required> <input
+				type="text" th:field="*{vin}" minlength="17" maxlength="17" placeholder="Enter the VIN of car"
+				required> <label>Select your Dealership</label> <select
+				th:field="*{dealership}" required>
+				<option th:each="c : *{dealerships}" th:value="${c}" th:text="${c}" />
+			</select> <br>
 
-
-	<div class="container">
-		<div class="row">
-			<div class="column">
-				<h2>Address:</h2>
-				<!-- 				<iframe -->
-				<!-- 					src="https://www.google.com/maps/d/edit?mid=1dW_jEHqoXnwJeidUi6qPTPsqSTyW5No&usp=sharing" -->
-				<!-- 					width="500" height="450" style="border: 0;" allowfullscreen="" -->
-				<!-- 					loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-
-				<iframe
-					src="https://www.google.com/maps/d/embed?mid=1dW_jEHqoXnwJeidUi6qPTPsqSTyW5No&hl=hu&ehbc=2E312F"
-					width="500" height="450" style="border: 0;" allowfullscreen=""
-					loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-			</div>
-			<div class="column" align="center">
-				<h2>Opening hours:</h2>
-				<p>Monday: 10:00-18:00</p>
-				<p>Tuesday: 8:00-16:00</p>
-				<p>Wednesday: 10:00-18:00</p>
-				<p>Thursday: 8:00-16:00</p>
-				<p>Friday: 10:00-18:00</p>
-				<p>Saturday: 10:00-14:00</p>
-				<p>Sunday: CLOSED</p>
-				<h2>Telephone number:</h2>
-				<p>+36 20 505 2244</p>
-				<h2>E-mail:</h2>
-				<p>example@example.com</p>
-			</div>
-		</div>
-		<br>
+<!-- 				<br> <input type="file" name="file" th:field="*{photo}" multiple="multiple"/> -->
+				
+			<br> <input type="submit" value="Add">
+		</form>
 	</div>
-
+	<br>
 	<div class="footer">
 		<h3>&copy 2022 Copyright AUTOKER</h3>
 		<div class="wrapper">
@@ -89,6 +76,5 @@
 		</div>
 		<br> <br>
 	</div>
-
 </body>
 </html>

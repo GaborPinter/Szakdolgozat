@@ -15,11 +15,11 @@
 		<nav>
 			<ul>
 				<li><a href="/home" th:href="@{/home}">Home</a></li>
-				<li><a href="/list" th:href="@{/list}">Add</a></li>
+<!-- 				<li><a href="/list" th:href="@{/list}">Add</a></li> -->
 				<li><a href="/view" th:href="@{/view}">View</a></li>
 				<li><a href="/search" th:href="@{/search}">Search</a></li>
 				<li><a href="/contact" th:href="@{/contact}">Contact</a></li>
-				<li><a href="/payPalHome" th:href="@{/payPalHome}">PayPal</a></li>
+<!-- 				<li><a href="/payPalHome" th:href="@{/payPalHome}">PayPal</a></li> -->
 				<li><a href="/map" th:href="@{/map}">Map</a></li>
 				<li><a href="/logout" th:href="@{/logout}">Logout</a></li>
 			</ul>
@@ -31,6 +31,7 @@
 		<caption>Eagle Garage</caption>
 		<tr>
 			<th>Make</th>
+<!-- 			<th>Image</th> -->
 			<th>Model</th>
 			<th>Colour</th>
 			<th>Price</th>
@@ -38,9 +39,11 @@
 			<!-- 			<th>Edit</th> -->
 			<!-- 			<th>Delete</th> -->
 			<th>INFO</th>
+			<th>PURCHASE</th>
 		</tr>
 		<tr th:each="i : ${carsFromD1}">
 			<td th:text="${i.make}">Make</td>
+<!-- 			<td th:text="${i.photo}">Image</td> -->
 			<td th:text="${i.model}">Model</td>
 			<td th:text="${i.colour}">Colour</td>
 			<td th:text="'$'+${i.price}">Price</td>
@@ -50,7 +53,9 @@
 			<!-- 			<td><a href="" -->
 			<!-- 				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td> -->
 			<td><a href=""
-				th:href="@{/purchase/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
+				th:href="@{/info/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
+			<td><a href=""
+				th:href="@{/buy/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">PURCHASE</a></td>
 		</tr>
 	</table>
 
@@ -68,6 +73,7 @@
 			<!-- 			<th>Edit</th> -->
 			<!-- 			<th>Delete</th> -->
 			<th>INFO</th>
+			<th>PURCHASE</th>
 		</tr>
 		<tr th:each="i : ${carsFromD2}">
 			<td th:text="${i.make}">Make</td>
@@ -80,7 +86,9 @@
 			<!-- 			<td><a href="" -->
 			<!-- 				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td> -->
 			<td><a href=""
-				th:href="@{/purchase/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
+				th:href="@{/info/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
+			<td><a href=""
+				th:href="@{/buy/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">PURCHASE</a></td>
 		</tr>
 	</table>
 	<br>
@@ -96,6 +104,7 @@
 			<!-- 			<th>Edit</th> -->
 			<!-- 			<th>Delete</th> -->
 			<th>INFO</th>
+			<th>PURCHASE</th>
 		</tr>
 		<tr th:each="i : ${carsFromD3}">
 			<td th:text="${i.make}">Make</td>
@@ -108,7 +117,9 @@
 			<!-- 			<td><a href="" -->
 			<!-- 				th:href="@{/delete/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">DELETE</a></td> -->
 			<td><a href=""
-				th:href="@{/purchase/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
+				th:href="@{/info/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">INFO</a></td>
+			<td><a href=""
+				th:href="@{/buy/{dealership}/{id}(dealership=${i.dealership},id=${i.id})}">PURCHASE</a></td>
 		</tr>
 	</table>
 	<br>
@@ -136,6 +147,10 @@
 					<div class="tooltip">YouTube</div>
 					<span><i class="fab fa-youtube"></i></span>
 				</div></a>
+				<a href="https://mail.google.com/mail/u/1/?ogbl#inbox"><div class="icon gmail">
+				<div class="tooltip">Gmail</div>
+				<span><i class="fab fa-google"></i></span>
+			</div></a>
 		</div>
 		<br> <br>
 	</div>

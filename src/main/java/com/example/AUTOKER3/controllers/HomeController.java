@@ -1,6 +1,7 @@
 package com.example.AUTOKER3.controllers;
 
-import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,25 +9,25 @@ import java.util.List;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.AUTOKER3.beans.Car;
 import com.example.AUTOKER3.beans.Role;
-import com.example.AUTOKER3.beans.User;
-import com.example.AUTOKER3.beans.UserRegistrationDto;
 import com.example.AUTOKER3.database.DatabaseAccess;
-import com.example.AUTOKER3.repository.UserRepository;
 import com.example.AUTOKER3.service.EmailSenderService;
 import com.example.AUTOKER3.service.UserServiceImpl;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private DatabaseAccess dataObj;
 
@@ -42,21 +43,23 @@ public class HomeController {
 	public String gotoWelcomePage() {
 		return "loginPage.html";
 	}
-	
+
 	@GetMapping("/loginPage")
-    public String login() {
-        return "loginPage.html";
-    }
-	
+	public String login() {
+		return "loginPage.html";
+	}
+
 	@GetMapping("/home")
-    public String gotoHomePage() {
-		if(userOrAdmin().equals("ROLE_USER")) {
+	public String gotoHomePage() {
+		if (userOrAdmin().equals("ROLE_USER")) {
 			return "home.html";
-		}else {
+		} else if(userOrAdmin().equals("ROLE_COMPANY")) {
+			return "companyHome.html";
+		} else {
 			return "adminHome.html";
 		}
-        
-    }
+
+	}
 
 	/**
 	 * Directs to add page through which user can add a car
@@ -66,28 +69,35 @@ public class HomeController {
 	@GetMapping("/list")
 	public String goToAddCarPage(Model model) {
 		model.addAttribute("car", new Car());
-		if(userOrAdmin().equals("ROLE_USER")) {
+		if (userOrAdmin().equals("ROLE_USER")) {
 			return "addCar.html";
-		}else {
+		}else if(userOrAdmin().equals("ROLE_COMPANY")) {
+			return "companyAddCar.html";
+		} else {
 			return "adminAddCar.html";
 		}
-		
+
 	}
 
 	@GetMapping("/contact")
 	public String goToContactCarPage(Model model) {
-		return "contact.html";
+		if (userOrAdmin().equals("ROLE_USER")) {
+			return "contact.html";
+		} else {
+			return "companyContact.html";
+		}
+		
 	}
 
 	@GetMapping("/mail")
 	public String goToContactMailCarPage(Model model, @RequestParam String name, @RequestParam String telNumber,
 			@RequestParam String subject, @RequestParam String message) throws MessagingException {
 
-		senderService.sendSimpleEmail(name+ " " +telNumber + " " + subject, message);
+		senderService.sendSimpleEmail(name + " " + telNumber + " " + subject, message);
 		return "mail.html";
 	}
-	
-	@GetMapping("/logout")					//jobbra kene igazitani
+
+	@GetMapping("/logout") // jobbra kene igazitani
 	public String goToLoginCarPage(Model model) {
 		return "loginPage.html";
 	}
@@ -97,18 +107,21 @@ public class HomeController {
 	 * 
 	 * @return A HTML page which acts as add car page
 	 */
-	@GetMapping("/add")
+	@RequestMapping(path = "/add", method=RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	public String addCar(Model model, @ModelAttribute Car car) {
-		
+
 //		Object attribute = model.getAttribute("file");
 //		System.out.println(attribute);
 //		car.setFile("FILE"+car.getVin());
-		
+
 		dataObj.addCar(car);
 		model.addAttribute("car", new Car());
-		if(userOrAdmin().equals("ROLE_USER")) {
-		return "addCar.html";
-		}else {
+		
+		if (userOrAdmin().equals("ROLE_USER")) {
+			return "addCar.html";
+		} else if(userOrAdmin().equals("ROLE_COMPANY")) {
+			return "companyAddCar.html";
+		} else {
 			return "adminAddCar.html";
 		}
 	}
@@ -117,34 +130,42 @@ public class HomeController {
 	 * Views/Returns all cars present in database
 	 * 
 	 * @return A HTML page which acts as view car page
-	 * @throws SecurityException 
-	 * @throws NoSuchFieldException 
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
 	 */
 	@GetMapping("/view")
 	public String viewCars(Model model) {
-	
+
 		model.addAttribute("carsFromD1", dataObj.getCars("Eagle_Garage"));
 		model.addAttribute("carsFromD2", dataObj.getCars("Giant_Garage"));
 		model.addAttribute("carsFromD3", dataObj.getCars("Super_Garage"));
 
-		if(userOrAdmin().equals("ROLE_USER")) {
-		return "viewCar.html";
-		}else {
-		return "adminViewCar.html";
+		if (userOrAdmin().equals("ROLE_USER")) {
+			return "viewCar.html";
+		}else if(userOrAdmin().equals("ROLE_COMPANY")) {
+			return "companyViewCar.html";
+		}  else {
+			return "adminViewCar.html";
 		}
-			
+
 	}
-	
+
 	@GetMapping("/map")
 	public String goToMap(Model model) {
-		return "map.html";
+		if (userOrAdmin().equals("ROLE_USER")) {
+			return "map.html";
+		} else if(userOrAdmin().equals("ROLE_COMPANY")) {
+			return "companyMap.html";
+		} else {
+			return "adminMap.html";
+		}
 	}
 
 	private String userOrAdmin() {
-		String name ="";
+		String name = "";
 		Collection<Role> roles = UserServiceImpl.roles;
 		for (Role role : roles) {
-		name = role.getName();
+			name = role.getName();
 		}
 		return name;
 	}
@@ -194,11 +215,13 @@ public class HomeController {
 	 */
 	@GetMapping("/search")
 	public String goToSearchPage() {
-		if(userOrAdmin().equals("ROLE_USER")) {
-		return "searchCar.html";
-		}else {
+		if (userOrAdmin().equals("ROLE_USER")) {
+			return "searchCar.html";
+		} else if(userOrAdmin().equals("ROLE_COMPANY")) {
+			return "companySearchCar.html";
+		}  else {
 			return "adminSearchCar.html";
-			}
+		}
 	}
 
 	/**
@@ -377,12 +400,15 @@ public class HomeController {
 		model.addAttribute("carsFromD1", collectAllD1);
 		model.addAttribute("carsFromD2", collectAllD2);
 		model.addAttribute("carsFromD3", collectAllD3);
-		
-		if(userOrAdmin().equals("ROLE_USER")) {
+
+		if (userOrAdmin().equals("ROLE_USER")) {
 			return "viewCar.html";
-			}else {
-				return "adminViewCar.html";
-				}
+		} else if(userOrAdmin().equals("ROLE_COMPANY")) {
+			return "companyViewCar.html";
+		} else {
+			return "adminViewCar.html";
+		}
+		
 	}
 
 	// -------------------------------------------------------------------------------------------
@@ -392,25 +418,42 @@ public class HomeController {
 	 * 
 	 * @return A HTML page which acts as receipt page for car
 	 */
-	@GetMapping("/purchase/{dealership}/{id}")
-	public String purchaseCar(Model model, @PathVariable String dealership, @PathVariable int id) {
+	@GetMapping("/info/{dealership}/{id}")
+	public String infoCar(Model model, @PathVariable String dealership, @PathVariable int id) {
 		Car car = dataObj.getCarById(id, dealership);
 
-//		DecimalFormat decimalFormat = new DecimalFormat("#########.##");
 		Double taxes = car.getPrice() * 0.13;
-		if (String.valueOf(taxes).length() > 7) {
-			String substring = taxes.toString().substring(0, 7);
-			taxes = Double.valueOf(substring);
-		}
+		BigDecimal bd1 = new BigDecimal(taxes).setScale(2, RoundingMode.HALF_UP);
+		double newTaxes = bd1.doubleValue();
 
 		String value = String.valueOf(car.getPrice() + taxes);
-		Double price = Double.valueOf(value.substring(0, 6));
+		Double price = Double.valueOf(value);
+		BigDecimal bd2 = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
+	    double newPrice = bd2.doubleValue();
 
-		car.setPrice(price);
-
+		car.setPrice(newPrice);
 		model.addAttribute("car", car);
-		model.addAttribute("taxes", taxes);
+		model.addAttribute("taxes", newTaxes);
 //		dataObj.deleteCar(id, dealership);
-		return "receipt.html";
+		
+		if (userOrAdmin().equals("ROLE_USER")) {
+			return "receipt.html";
+		} else if(userOrAdmin().equals("ROLE_COMPANY")) {
+			return "companyReceipt.html";
+		} else {
+			return "adminReceipt.html";
+		}
+		
+	}
+	
+	@GetMapping("/buy/{dealership}/{id}")
+	public String buyCar() {
+		if (userOrAdmin().equals("ROLE_USER")) {
+			return "PayPalHome.html";
+		} else if(userOrAdmin().equals("ROLE_COMPANY")) {
+			return "companyPayPalHome.html";
+		} else {
+			return "adminPayPalHome.html";
+		}
 	}
 }
