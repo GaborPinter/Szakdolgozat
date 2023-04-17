@@ -13,7 +13,7 @@ pipeline{
         stage('Build docker image'){
             steps{
                 script{
-                    bat 'docker build -t gaborpinter/Szakdolgozat .'
+                    bat 'docker build -t gaborpinter/szakdolgozat .'
                 }
             }
         }
