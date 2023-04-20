@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
-	}
     tools{
         maven 'maven_3_8_6'
     }
@@ -23,7 +20,7 @@ pipeline{
         stage('Login') {
 
 			steps {
-				bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				bat ' docker login -u gaborpinter -p Katuska05+'
 			}
 		}
         
@@ -37,7 +34,7 @@ pipeline{
     
     post {
 		always {
-			sh 'docker logout'
+			bat 'docker logout'
 		}
 	}
     
