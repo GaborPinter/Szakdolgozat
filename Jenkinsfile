@@ -23,7 +23,7 @@ pipeline{
         stage('Login') {
 
 			steps {
-				bat 'docker login -u gaborpinter --password-stdin' 
+				bat 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
 			}
 		}
         
