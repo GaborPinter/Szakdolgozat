@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
+	}
     tools{
         maven 'maven_3_8_6'
     }
@@ -17,16 +20,25 @@ pipeline{
                 }
             }
         }
-        stage('Push image to Hub'){
-            steps{
-                script{
-                    withCredentials([string(credentialsId: 'dockerhub-pwd-ok', variable: 'dockerhubpwdok')]) {
-                    bat 'docker login -u gaborpinter -p ${dockerhubpwdok}'
-                    
-}
-                    bat 'docker push gaborpinter/Szakdolgozat'
-                }
-            }
-        }
-    }
+        stage('Login') {
+
+			steps {
+				bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+        
+        stage('Push') {
+
+			steps {
+				bat 'docker push autoker3'
+			}
+		}
+	}
+    
+    post {
+		always {
+			sh 'docker logout'
+		}
+	}
+    
 }
