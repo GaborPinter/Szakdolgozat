@@ -1,8 +1,6 @@
 pipeline{
     agent any
-    environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
-	}
+    
     tools{
         maven 'maven_3_8_6'
     }
@@ -23,7 +21,7 @@ pipeline{
         stage('Login') {
 
 			steps {
-				bat 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+				bat 'docker login -u gaborpinter -p Katuska05+'
 			}
 		}
         
