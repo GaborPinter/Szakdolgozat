@@ -27,7 +27,8 @@ pipeline{
         stage('Push') {
 
 			steps {
-				bat 'docker push autoker3'
+				bat 'docker tag autoker3 gaborpinter/autoker3'
+				bat 'docker push gaborpinter/autoker3'
 			}
 		}
 	}
