@@ -37,9 +37,13 @@
 			<label for="name">Name:</label> 
 			<input type="text" name="name" id="name" required> 
 			<label for="telNumber">Telephone Number:</label>
-			<input type="text" name="telNumber" id="telNumber">
+			<input type="tel" name="telNumber" id="telNumber" pattern="[\+](36|06)(20|30|70)\d{7}" title="+36301234567" required/>
 			<label for="subject">Subject:</label>
-			<input type="text" name="subject" id="subject" required> 
+			<input type="text" name="subject" id="subject" required>
+			
+			<label for="replyTo">ReplyTo:</label> 
+			<input type="text" name="replyTo" id="replyTo" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="characters@characters.domain" required>
+			
 			<label for="message">Message</label>
 			<textarea name="message" cols="30" rows="10" required></textarea>
 			<input type="submit" value="Send">

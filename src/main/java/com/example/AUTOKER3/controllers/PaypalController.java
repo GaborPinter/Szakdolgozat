@@ -31,8 +31,8 @@ public class PaypalController {
 	public String payment(@ModelAttribute("order") Order order) {
 		try {
 			Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
-					order.getIntent(), order.getDescription(), "http://localhost:8080/pay/cancel",
-					"http://localhost:8080/pay/success");
+					order.getIntent(), order.getDescription(), "http://localhost:8081/pay/cancel",
+					"http://localhost:8081/pay/success");
 			for(Links link:payment.getLinks()) {
 				if(link.getRel().equals("approval_url")) {
 					return "redirect:"+link.getHref();

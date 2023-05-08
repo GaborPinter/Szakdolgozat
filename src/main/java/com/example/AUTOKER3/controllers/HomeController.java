@@ -91,9 +91,9 @@ public class HomeController {
 
 	@GetMapping("/mail")
 	public String goToContactMailCarPage(Model model, @RequestParam String name, @RequestParam String telNumber,
-			@RequestParam String subject, @RequestParam String message) throws MessagingException {
+			@RequestParam String subject, @RequestParam String message, @RequestParam String replyTo) throws MessagingException {
 
-		senderService.sendSimpleEmail(name + " " + telNumber + " " + subject, message);
+		senderService.sendSimpleEmail(name + " " + telNumber + " " + subject, message, replyTo);
 		return "mail.html";
 	}
 

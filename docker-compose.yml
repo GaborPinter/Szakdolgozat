@@ -3,13 +3,11 @@ services:
   app:
     image: autoker3
     ports:
-      - "9090:9090"
+      - "9090:8081"
     depends_on:
       - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/mydatabase
-      SPRING_DATASOURCE_USERNAME: myuser
-      SPRING_DATASOURCE_PASSWORD: mypassword
+    links:
+    - db
   db:
     image: mysql
     ports:
@@ -19,3 +17,4 @@ services:
       MYSQL_DATABASE: mydatabase
       MYSQL_USER: myuser
       MYSQL_PASSWORD: mypassword
+    
