@@ -6,8 +6,8 @@ services:
       - "9090:8081"
     depends_on:
       - db
-    links:
-    - db
+    networks:
+    - backend
   db:
     image: mysql
     ports:
@@ -17,4 +17,7 @@ services:
       MYSQL_DATABASE: mydatabase
       MYSQL_USER: myuser
       MYSQL_PASSWORD: mypassword
-    
+    networks:
+      - backend
+networks:
+ backend:
